@@ -1,0 +1,73 @@
+version: 2
+jobs:
+  lint:
+    docker:
+      - image: node:8.9.4-alpine
+    working_directory: ~/repo
+    steps:
+        - checkout
+        # Install native dependencies
+        - run:
+           name: Install native dependencies
+           command: apk add --no-cache bash python make g++
+        # Install dependencies
+        - run:
+           name: Install dependencies
+           command: npm install
+        # Run linter!
+        - run:
+           name: Run linter
+           command: npm run lint
+  test:
+    docker:
+      # Specify the version you desire here
+      - image: node:8.9.4-alpine
+    working_directory: ~/repo
+    steps:
+      - checkout
+      # Install native dependencies
+      - run:
+         name: Install native dependencies
+         command: apk add --no-cache bash python make g++
+      # Install dependencies
+      - run:
+         name: Install dependencies
+         command: npm install
+      # Run unit tests!
+      - run:
+         name: Run unit tests
+         command: npm test
+  publish_to_npm:
+    docker:
+      # Specify the version you desire here
+      - image: node:8.9.4-alpine
+    working_directory: ~/repo
+    steps:
+      - checkout
+      # Install native dependencies
+      - run:
+         name: Install native dependencies
+         command: apk add --no-cache bash python make g++
+      # Authenticate with registry
+      - run:
+         name: Authenticate with registry
+         command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/repo/.npmrc
+      # Publish package
+      - run:
+         name: Publish package
+         command: npm publish --access public
+workflows:
+  version: 2
+  lint_test_and_publish:
+    jobs:
+      - lint
+      - test
+      - publish_to_npm:
+          requires:
+            - lint
+            - test
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
