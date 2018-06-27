@@ -62,10 +62,17 @@ workflows:
     jobs:
       - lint
       - test
-      - publish_to_npm:
+      - hold:
+          type: approval
           requires:
             - lint
             - test
+          filters:
+            branches:
+              only: master
+      - publish_to_npm:
+          requires:
+            - hold
           filters:
             branches:
               only: master
