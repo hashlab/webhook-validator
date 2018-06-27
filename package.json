@@ -1,6 +1,6 @@
 {
   "name": "@hashlab/webhook-validator",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "A proof of concept for webhook validation",
   "author": "Christopher Enytc <chris@hashlab.com.br>",
   "license": "MIT",
