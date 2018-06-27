@@ -1,0 +1,37 @@
+{
+  "name": "@hashlab/webhook-validator",
+  "version": "0.1.0",
+  "description": "A proof of concept for webhook validation",
+  "author": "Christopher Enytc <chris@hashlab.com.br>",
+  "license": "MIT",
+  "homepage": "https://github.com/hashlab/webhook-validator#readme",
+  "bugs": {
+    "url": "https://github.com/hashlab/webhook-validator/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hashlab/webhook-validator.git"
+  },
+  "main": "lib/validator",
+  "scripts": {
+    "start": "node examples/index.js",
+    "lint": "./node_modules/eslint/bin/eslint.js --format table --max-warnings 0 .",
+    "test": "./node_modules/mocha/bin/mocha ./test/*.spec.js"
+  },
+  "devDependencies": {
+    "eslint": "4.9.0",
+    "eslint-config-prettier": "2.9.0",
+    "eslint-plugin-prettier": "2.4.0",
+    "prettier": "1.10.2",
+    "express": "4.16.3",
+    "morgan": "1.9.0",
+    "mocha": "5.2.0",
+    "chai": "4.1.2"
+  },
+  "keywords": [
+    "node",
+    "webhooks",
+    "validator",
+    "example"
+  ]
+}
